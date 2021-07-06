@@ -1,0 +1,500 @@
+   26  ls -al
+   27  pwd
+   28  pwd
+   29  ls
+   30  cd ..
+   31  ls
+   32  cd ..
+   33  l
+   34  ls
+   35  cd Analysis/
+   36  ls
+   37  cd toyproblems/
+   38  ls -al
+   39  pwd
+   40  pwd
+   41  ls
+   42  cd ..
+   43  ls
+   44  cd ..
+   45  ls
+   46  cd Analysis/
+   47  ls
+   48  cd toyproblems/
+   49  ls
+   50  cd ..
+   51  pwd
+   52  ls
+   53  cd ..
+   54  pwd
+   55  ls
+   56  cd ..
+   57  wd
+   58  opwd
+   59  pwd
+   60  ls
+   61  cd template
+   62  ls
+   63  cd Analysis/
+   64  ls
+   65  ls -al
+   66  cd ..
+   67  ls -al
+   68  pwd
+   69  ls
+   70  cd Analysis/
+   71  ls
+   72  ls -al
+   73  pwd
+   74  ls
+   75  ls -al
+   76  cd template/
+   77  ls -al
+   78  ls -al Scala/
+   79  ls -al Java
+   80  pwd
+   81  ls
+   82  pwd
+   83  cd ..
+   84  cd ..
+   85  cd ..
+   86  ls
+   87  cd 2020_05_01_Parquet4S
+   88  ls
+   89  cd Analysis/
+   90  ls
+   91  cd Parquet4S/
+   92  ls
+   93  cd Akka
+   94  ls
+   95  cd ..
+   96  cd Scala
+   97  ls
+   98  cd src
+   99  ls
+  100  cd ..
+  101  ls
+  102  cd ~/Downloads/
+  103  ls
+  104  cd parquet4s-master/
+  105  ls
+  106  sbt-eclipse
+  107  sbteclipse
+  108  sbt eclipse
+  109  sbt eclipse
+  110  sbt eclipse
+  111  ls
+  112  ls project/
+  113  ls
+  114  cd project/
+  115  ls
+  116  cd ..
+  117  ls
+  118  pwd
+  119  sbt eclipse
+  120  sbt eclipse
+  121  vi build.sbt
+  122  ls
+  123  vi project/plugins.sbt
+  124  sbt eclipse
+  125  ls
+  126  vi project/plugins.sbt
+  127  sbt eclipse
+  128  ls project/
+  129  ls project/project/
+  130  ls project/project/target/
+  131  ls
+  132  more README.md 
+  133  ls
+  134  cd examples/
+  135  ls
+  136  vi build.sbt 
+  137  ls
+  138  ls src
+  139  ls target/
+  140  vi build.sbt 
+  141  sbt eclipse
+  142  ls
+  143  ls project/
+  144  cd ..
+  145  ls
+  146  dpwd
+  147  pwd
+  148  sbt eclipse
+  149  sbt eclipse
+  150  pwd
+  151  sbt eclipse
+  152  sbt eclipse
+  153  pwd
+  154  sbt eclipse
+  155  sbt eclipse
+  156  scala
+  157  pwd
+  158  cd ~
+  159  cd Dropbox/
+  160  cd Documents/
+  161  cd src
+  162  ls
+  163  sbt install metals
+  164  brew install scalacenter/bloop/bloop
+  165  vi ~/.bash_profile
+  166   brew services start scalacenter/bloop/bloop
+  167  cd /var/folders
+  168  ls
+  169  cd gl
+  170  ls
+  171  cd jvj9b0xn34lgq6_h9370p8q80000gn/
+  172  ls
+  173  cd T
+  174  ls
+  175  pwd
+  176  ls -al
+  177  cd 1588617620429-0
+  178  ls
+  179  more data.parquet 
+  180  vi data.parquet 
+  181  pwd
+  182  cd ~
+  183  vi .bashrc_profile
+  184  vi .profile
+  185  ls
+  186  cd ~/Dropbox/Documents/Database/
+  187  ls
+  188  rm NPO_tables.mysql 
+  189  mysqldump -u root
+  190  mysql -u root
+  191  mysqldump -u root db000fe6 P M  C progress tasks > NPO_tables.mysql
+  192  ls -a
+  193  ls -al
+  194  pwd
+  195  ls -al
+  196  cd /Users/markrbower/
+  197  ls
+  198  cd src
+  199  ls
+  200  pwd
+  201  cd ..
+  202  pwd
+  203  ls
+  204  cd Documents/
+  205  ls
+  206  pwd
+  207  pwd
+  208  ls
+  209  pwd
+  210  ls
+  211  cd mpi
+  212  pwd
+  213  cd mpi
+  214  ls
+  215  cd download/
+  216  ls
+  217  cd openmpi-2.0.4
+  218  ls
+  219  ./configure --prefix=/Users/markrbower/Documents/mpi/
+  220  make all install
+  221  pwd
+  222  cd bin
+  223  ls
+  224  pwd
+  225  cd ../..
+  226  ls
+  227  cd bin
+  228  pwd
+  229  vi ~/.bash_profile
+  230  vi ~/.profile 
+  231  cd ~
+  232  source .bash_profile 
+  233  pwd
+  234  cd Documents/
+  235  ls
+  236  cd ~/Dropbox/Documents/
+  237  ls
+  238  cd src
+  239  ls
+  240  mkdir mpi
+  241  cd mpi
+  242  vi HelloWorld.c
+  243  mpicc -o HelloWorld HelloWorld.c
+  244  source ~/.profile 
+  245  mpicc -o HelloWorld HelloWorld.c
+  246  vi /Users/markrbower/.bash_profile 
+  247  vi .bashrc
+  248  vi /Users/markrbower/.bash_profile 
+  249  ls
+  250  mpirun -np 2 ./HelloWorld
+  251  vi /Users/markrbower/.profile 
+  252  source ~/.profile
+  253  mpirun -np 2 ./HelloWorld
+  254  mpirun -np 4 ./HelloWorld
+  255  mpirun -np 8 ./HelloWorld
+  256  vi /Users/markrbower/.profile 
+  257  mpirun -np 100 ./HelloWorld
+  258  mpirun -np 10 ./HelloWorld
+  259  mpirun -np 16 ./HelloWorld
+  260  mpirun -np 32 ./HelloWorld
+  261  mpirun -np 64 ./HelloWorld
+  262  mpirun -np 33 ./HelloWorld
+  263  mpirun -np 48 ./HelloWorld
+  264  mpirun -np 40 ./HelloWorld
+  265  mpirun -np 43 ./HelloWorld
+  266  mpirun -np 46 ./HelloWorld
+  267  mpirun -np 45 ./HelloWorld
+  268  mpirun -np 16 ./HelloWorld
+  269  ls
+  270  vi HelloWorld.c
+  271  pwd
+  272  cp * ~/Dropbox/Documents/Concepts/2020_05_10_MPI/Analysis/MPI/C/.
+  273  spark
+  274  pyspark
+  275  whereis spark
+  276  locate spark
+  277  echo $SPARK_HOME
+  278  whereis spark-shell
+  279  echo 'sc.getConf.get("spark.home")' | spark-shell
+  280  vi ~/.profile
+  281  vi ~/.profile
+  282  vi ~/.profile
+  283  vi ~/.bashrc
+  284  vi ~/.bash_profile
+  285  source ~/.bashrc_profile
+  286  cd $SPARK_HOME
+  287  ls
+  288  cd ..
+  289  ls
+  290  cd ..
+  291  ls
+  292  cd ..
+  293  ls
+  294  pwd
+  295  cd apache-spark/
+  296  ls
+  297  cd 2.4.5/
+  298  ls
+  299  cd bin
+  300  ls
+  301  more load-spark-env.sh 
+  302  cd ..
+  303  cd libexec/
+  304  cd bin
+  305  ls
+  306  pwd
+  307  pwd
+  308  pyspark
+  309  spark-shell
+  310  cd ~
+  311  cd .sbt
+  312  ls
+  313  cd boot
+  314  ls
+  315  rm sbt.boot.lock 
+  316  ls
+  317  spark-shell
+  318  ssh mbower@bridges.psc.edu
+  319  ssh mbower@bridges.psc.edu
+  320  ssh mbower@bridges.psc.edu
+  321  ssh mbower@bridges.psc.edu
+  322  cd ~
+  323  cd Documents/
+  324  cd Data
+  325  ls
+  326  cd NV
+  327  ls
+  328  cd NVC1001_23_002_2/
+  329  ls
+  330  ls -al
+  331  ls -al
+  332  ls -al
+  333  ls -al
+  334  ls -al
+  335  cd ~/Dropbox/Documents/Database/
+  336  ls
+  337  ls
+  338  cd ~/Documents/Data
+  339  ls
+  340  cd NV
+  341  ls
+  342  cd NVC1001_23_002_2/
+  343  ls
+  344  ls -al
+  345  ls -al
+  346  ls -al
+  347  ls -al
+  348  ls -al
+  349  ls -al
+  350  ls -al
+  351  ls -al
+  352  ls -al
+  353  ls -al
+  354  ls -al
+  355  ls -al
+  356  ls -al
+  357  ls -al
+  358  rm NVC1001_23_002_14.mef
+  359  ls -al
+  360  rm NVC1001_23_002_01.mef
+  361  ls -al
+  362  ls -al
+  363  ls -al
+  364  ls -al
+  365  cd NVC1001_23_002_2
+  366  ls -al
+  367  cd ..
+  368  ls -al
+  369  rm -rf NVC1001_23_002_2
+  370  ls -al
+  371  pwd
+  372  cd ..
+  373  ls
+  374  rm -rf NVC1001_23_002_2
+  375  rm -rf NVC1001_25_005_2
+  376  ls -al
+  377  pwd
+  378  cd ../..
+  379  pwd
+  380  ls
+  381  pwd
+  382  mkdir src
+  383  cd src
+  384  ls
+  385  history > tmp
+  386  vi tmp
+  387  ssh mbower@bridges.psc.edu
+  388  pwd
+  389  cd ..
+  390  rm -rf src
+  391  cd ~/Dropbox/Documents/
+  392  ls
+  393  cd src
+  394  ls
+  395  cd spark
+  396  ls
+  397  mpicc
+  398  pwd
+  399  ls
+  400  cd ..
+  401  ls
+  402  mkdir mpi
+  403  cd mpi
+  404  mv ~/Downloads/openmpi* .
+  405  ls
+  406  rm -rf openmpi-2.0.4
+  407  ls
+  408  pwd
+  409  mkdir download
+  410  mv openmpi-2.0.4.tar.bz2 download/.
+  411  cd download/
+  412  ls
+  413  tar -xzvf openmpi-2.0.2.tar.bz2
+  414  tar -xzvf openmpi-2.0.4.tar.bz2
+  415  cd openmpi-2.0.4
+  416  pwd
+  417  cd ..
+  418  ls
+  419  cd ..
+  420  ls
+  421  cd ..
+  422  ls
+  423  pwd
+  424  cd mpi
+  425  ls
+  426  cd download/
+  427  ls
+  428  cd ..
+  429  ls
+  430  cd ..
+  431  pwd
+  432  ls
+  433  mv mpi /Users/markrbower/Documents/.
+  434  pwd
+  435  cd ~/Documents/
+  436  ls
+  437  cd mpi
+  438  ls
+  439  cd bin
+  440  ls
+  441  pwd
+  442  pwd
+  443  cd ~/Dropbox/Documents/Concepts/2020_05_10_MPI/
+  444  ls
+  445  cd Analysis/
+  446  ls
+  447  rename template MPI
+  448  ren template MPI
+  449  mv template MPI
+  450  ls
+  451  cd MPI
+  452  pwd
+  453  ls
+  454  pwd
+  455  cd C
+  456  ls
+  457  ls
+  458  mpirun -np 16 ./HelloWorld
+  459  source ~/.profile
+  460  mpirun -np 16 ./HelloWorld
+  461  vi helloBsend.c
+  462  mpicc helloBsend.c 
+  463  mpicc -o helloBsecnd helloBsend.c 
+  464  rm a.out
+  465  ls
+  466  mv helloBsdcnd helloBsend
+  467  mv helloBsecnd helloBsend
+  468  mpirun -np 8d helloBsend
+  469  mpirun -np 8 helloBsend
+  470  ls
+  471  vi hellNBsend.c
+  472  mpicc -o helloNBsend helloNBsend.c
+  473  ls
+  474  mv hellNBsend.c helloNBsend.c
+  475  mpicc -o helloNBsend helloNBsend.c
+  476  mpirun -np 8 helloNBsend
+  477  mpirun -np 8 helloBsend
+  478  mpirun -np 8 helloNBsend
+  479  mpirun -np 8 helloNBsend
+  480  sudo pkgutil --forget com.cisco.pkg.anyconnect.vpn
+  481  sudo pkgutil --forget com.cisco.pkg.anyconnect.vpn
+  482  /Users/markrbower/Dropbox/Documents/Concepts/2020_05_10_MPI/MPI/Analysis/MPI/C/examples-usingmpi/sampleruns ; exit;
+  483  /Applications/TAU/tau/installtau ; exit;
+  484  installtau -help
+  485  pwd
+  486  cd ~/tau
+  487  cd ~/Applications/tau
+  488  cd ~/Applications/
+  489  ls
+  490  cd /Volumes/
+  491  ls
+  492  cd Macintosh\ HD
+  493  ls
+  494  cd Applications/
+  495  cd TAU
+  496  ls
+  497  cd tau
+  498  ls
+  499  installtau -mpi -cc=mpicc
+  500  ./installtau -mpi -cc=mpicc
+  501  cd ~/Library/
+  502  grep -r steam *
+  503  grep -or steam *
+  504  pwd
+  505  cd ~/Dropbox/Documents/Concepts/2019_11_19_NetworkParameterOutlier
+  506  ls
+  507  cd Analysis/
+  508  ls
+  509  cd NPO/
+  510  ls
+  511  pandoc
+  512  pandoc -f markdown -t latex
+  513  vi test1.md
+  514  pandoc test1.md -f markdown -t latex -s -o test1.latex
+  515  ls
+  516  more test1.latex
+  517  pandoc test1.md -f markdown -s -o test1.tex
+  518  ls
+  519  rm test1.latex
+  520* more test1.
+  521  pandoc test1.md -f markdown -s -o test1.pdf
+  522  pandoc --mathml
+  523  pandoc
+  524  vi math.ml
+  525  history > tmp

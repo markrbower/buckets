@@ -1,0 +1,28 @@
+Package: EventsBufferFutures
+Version: 0.0-9
+Date: 2014-09-03
+Title: EventsBufferFutures
+Authors@R: person("Mark", "Bower", email = "mark.bower@yale.edu",
+  role = c("aut", "cre"))
+Description: A dummy package
+Depends: R (>= 4.0.0)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+NeedsCompilation: yes
+Imports:
+    iterators (>= 1.0.12),
+    itertools (>= 0.1-3),
+    Rcpp (>= 1.0.5),
+    RMySQL (>= 0.10.20),
+    rJava (>= 0.9-13),
+    here (>= 0.1)
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+LinkingTo: 
+    Rcpp
+Config/testthat/edition: 3

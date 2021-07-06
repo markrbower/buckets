@@ -1,0 +1,24 @@
+---
+title: "markdown_tutorial_1"
+author: "Mark Bower"
+date: "6/1/2020"
+output:
+  pdf_document:
+    template: null
+bibliography: rmarkdown.bib
+---
+
+Markdown provides a way to make standard types of formatted text:
+
+- *italics*
+- **bold**
+- `code`
+- [links](rmarkdown.rstudio.com)
+- etc.
+
+You can also make:
+
+- Latex equations: $E = mc^{2}$
+- and bibliographies: [@Bower06]
+
+# References
