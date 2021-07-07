@@ -17,6 +17,7 @@ Imports:
     Rcpp (>= 1.0.5),
     RMySQL (>= 0.10.20),
     rJava (>= 0.9-13),
+    future (>= 1.21.0),
     here (>= 0.1)
 Suggests: 
     knitr,

@@ -5,8 +5,6 @@ eventsBufferFutures <- function( accumulatorSize, FUN, recipient, primeSize=0 ) 
   # recipient      : where to send the result
   # primeSize      : the number of FUN runs to be completed before broadcasting
   #
-  #' @export
-  #' @examples
   library(future)
 
   accumulator <- vector( mode='double', length=accumulatorSize )

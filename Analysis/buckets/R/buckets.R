@@ -6,8 +6,6 @@ buckets <- function( accumulatorSize, FUN, recipient, primeSize=0 ) {
   # primeSize      : the number of FUN runs to be completed before broadcasting
   #
   #' @export
-  #' @examples
-  library(future)
 
   accumulator <- vector( mode='double', length=accumulatorSize )
   accumulatorCount <- 0
