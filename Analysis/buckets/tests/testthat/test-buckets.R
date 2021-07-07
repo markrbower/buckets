@@ -133,7 +133,16 @@ test_that("buckets within buckets works",{
   expect_equal( mean( bc$getValue() ), 5.5 )
 })
 
-
+#
+# The following works outside of the test harness, but not inside it!?
+#
+test_that("using an algorithm object works",{
+  AA <- 'bucket_output <- buckets( accumulatorSize=10, mean, NULL );
+         bucket_input  <- buckets( accumulatorSize=10, NULL, bucket_output)'
+  A <- algorithm(AA)
+  for (x in seq(1,10)) {A$add(x)}
+  expect_equal( A$getValue(), 5.5 )
+})
 
 
 

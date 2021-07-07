@@ -1,7 +1,8 @@
 algorithm <- function( algo ) {
   #' @export
+  library(evaluate)
 
-  eval(algo) # It makes sense that 'evaluating' doesn't add it list of functions
+  evaluate(algo)
 
   # 1.
   add <- function(events) {
