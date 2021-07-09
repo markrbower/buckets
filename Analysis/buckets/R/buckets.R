@@ -1,4 +1,4 @@
-buckets <- function( accumulatorSize, FUN, recipient, primeSize=0 ) {
+buckets <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NULL ) {
   #
   # accumulatorSize: the number of events held until you do something
   # FUN            : what is done with a full accumulator
@@ -45,7 +45,11 @@ buckets <- function( accumulatorSize, FUN, recipient, primeSize=0 ) {
       if ( primeCnt >= primeSize ) {
         sendCount <<- sendCount + 1
         if ( !is.null(recipient) ) {
-          recipient$add( value(stack[[sendCount]]) )
+          returnValue <- value(stack[[sendCount]])
+          if ( !is.null(returnName) ) {
+            names(returnValue) <- returnName
+          }
+          recipient$add( returnValue )
         }
       }
       accumulatorCount <<- 0
@@ -56,6 +60,9 @@ buckets <- function( accumulatorSize, FUN, recipient, primeSize=0 ) {
     readCount <<- readCount + 1
     if ( readCount <= length(stack) ) {
       returnValue <- value(stack[[readCount]])
+      if ( !is.null(returnName) ) {
+        names(returnValue) <- returnName
+      }
       return( returnValue )
     } else {
       readCount <<- readCount - 1

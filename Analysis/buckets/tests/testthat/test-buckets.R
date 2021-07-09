@@ -133,9 +133,6 @@ test_that("buckets within buckets works",{
   expect_equal( mean( bc$getValue() ), 5.5 )
 })
 
-#
-# The following works outside of the test harness, but not inside it!?
-#
 test_that("using an algorithm object works",{
   AA <- 'bucket_output <- buckets( accumulatorSize=10, mean, NULL );
          bucket_input  <- buckets( accumulatorSize=10, NULL, bucket_output)'
@@ -144,5 +141,20 @@ test_that("using an algorithm object works",{
   expect_equal( A$getValue(), 5.5 )
 })
 
+test_that("buckets sending output to DatabaseInsertBuffers works",{
+  bucket_output <- buckets::buckets( accumulatorSize=2, NULL, topconnect::databaseInsertBuffer( 'MRE_test', 'test', c('value'), 2 ), returnName='value' )
+  bucket_input <- buckets::buckets( accumulatorSize=5, mean, bucket_output )
+  for ( i in seq(1,20) ) {bucket_input$add(i)}
+  # Do the unit test here
+  conn <- topconnect::db(user='root',password='',dbname='MRE_test',host='localhost')
+  query <- 'SELECT test.*,@rn:=@rn+1 as row_num from test,(select @rn:=0) as R WHERE value >= 3 AND value <= 18 AND created >= NOW() - INTERVAL 10 MINUTE;'
+  rs <-   DBI::dbGetQuery( conn, query )
+  expect_equal( max(rs$row_num), 4 )
+  # Clear out recent entries to the database
+  query <- 'DELETE FROM test WHERE created >= NOW() - INTERVAL 10 MINUTE;'
+  DBI::dbGetQuery( conn, query )
+  DBI::dbDisconnect(conn)
+})
+ 
 
 
