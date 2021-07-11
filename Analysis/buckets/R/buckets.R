@@ -8,8 +8,7 @@ buckets <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NU
   #' @export
   library( future )
 
-  accumulator <- vector( mode='double', length=accumulatorSize )
-  accumulatorCount <- 0
+  accumulator <- c()
   stack <- NULL
   writeCount  <- 0
   primeCnt <- 0
@@ -31,15 +30,14 @@ buckets <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NU
   
   add_single <- function( event, flag=TRUE ) {
     # event is a scalar
-    accumulatorCount <<- accumulatorCount + 1
-    accumulator[[accumulatorCount]] <<- event
-    if ( accumulatorCount == accumulatorSize ) {
+    accumulator <<- append( accumulator, event )
+    if ( length(accumulator) == accumulatorSize ) {
       primeCnt <<- primeCnt + 1
       writeCount <<- writeCount + 1
       if ( !is.null(FUN) ) {
-        stack[[writeCount]] <<- future( FUN( accumulator[1:accumulatorCount] ) )
+        stack[[writeCount]] <<- future( FUN( accumulator ) )
       } else {
-        stack[[writeCount]] <<- future( accumulator[1:accumulatorCount] )
+        stack[[writeCount]] <<- future( accumulator )
       }
       # Send forward?
       if ( primeCnt >= primeSize ) {
@@ -52,7 +50,8 @@ buckets <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NU
           recipient$add( returnValue )
         }
       }
-      accumulatorCount <<- 0
+      # Clear the accumulator
+      accumulator <<- c()
     }
   }
   
@@ -72,17 +71,17 @@ buckets <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NU
   
   flush <- function() {
     # Check for an empty accumulator
-    if ( accumulatorCount == 0 ) {
+    if ( length(accumulator) == 0 ) {
       return(NULL)
     }
     # Flush the accumulator to the stack
     writeCount <<- writeCount + 1
     if ( !is.null(FUN) ) {
-      stack[[writeCount]] <<- future( FUN( accumulator[1:accumulatorCount] ) )
+      stack[[writeCount]] <<- future( FUN( accumulator ) )
     } else {
-      stack[[writeCount]] <<- future( accumulator[1:accumulatorCount] )
+      stack[[writeCount]] <<- future( accumulator )
     }
-    accumulatorCount <<- 0
+    accumulator <<- c()
     # Flush the stack to the receiver
     while ( sendCount < length(stack) ) {
       sendCount <<- sendCount + 1

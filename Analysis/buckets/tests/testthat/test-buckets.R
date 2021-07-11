@@ -151,10 +151,36 @@ test_that("buckets sending output to DatabaseInsertBuffers works",{
   rs <-   DBI::dbGetQuery( conn, query )
   expect_equal( max(rs$row_num), 4 )
   # Clear out recent entries to the database
-  query <- 'DELETE FROM test WHERE created >= NOW() - INTERVAL 10 MINUTE;'
+  query <- 'DELETE FROM test WHERE created >= NOW() - INTERVAL 1 MINUTE;'
   DBI::dbGetQuery( conn, query )
   DBI::dbDisconnect(conn)
 })
- 
 
+test_that("closures being called by Buckets works",{
+  closure <- function(parameter) {
+    function(x) {
+      mean(x + parameter)      
+    } 
+  }
+  bucket <- buckets( accumulatorSize=10, closure(5), NULL )
+  for ( i in seq(1,100) ) {bucket$add( i )}
+  expect_equal( bucket$getValue(), 10.5 )
+  expect_equal( bucket$getValue(), 20.5 )
+})
+
+test_that("buckets can operatet on the names of named vectors",{
+  closure <- function(parameter) {
+    function(x) {
+      mean( as.numeric(names(x)) + parameter)      
+    } 
+  }
+  # Closure adds 5
+  bucket <- buckets( accumulatorSize=10, closure(5), NULL )
+  NV <- seq(1,100)
+  # Names add 10
+  names(NV) <- 10 + NV
+  for ( i in seq(1,100) ) {bucket$add( NV[i] )}
+  # Overall adds 15
+  expect_equal( bucket$getValue(), 20.5 )
+})
 
