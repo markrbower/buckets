@@ -1,0 +1,14 @@
+argAcc_final <- function(...) {
+  new_args <- list(...)
+  if ( class(new_args[[1]][[1]]) == 'function' ) {
+    fxn <- new_args[[1]][[1]]
+    args_ <<- append( fxn(), new_args[[1]][2:length(new_args[[1]])] )
+  } else {
+    args_ <<- new_args
+  }
+  
+  function(x) {
+    print( args_$a + args_$c + args_$d )
+  }
+}
+
