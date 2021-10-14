@@ -69,9 +69,23 @@ bucket <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NUL
     primeCnt <<- primeCnt + 1
     writeCount <<- writeCount + 1
     if ( !is.null(FUN) ) {
-      stack[[writeCount]] <<- future( FUN( accumulator ) )
+      tryCatch(
+        {
+          stack[[writeCount]] <<- future( FUN( accumulator ) )
+        },
+        error=function(cond) {
+          stack[[writeCount]] <<- NULL
+        }
+      )
     } else {
-      stack[[writeCount]] <<- future( accumulator )
+      tryCatch(
+        {
+          stack[[writeCount]] <<- future( accumulator )
+        },
+        error=function(cond) {
+          stack[[writeCount]] <<- NULL
+        }
+      )
     }
     # Send forward?
     if ( primeCnt >= primeSize ) {
@@ -81,7 +95,7 @@ bucket <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NUL
       sendCount <<- sendCount + 1
       if ( !is.null(recipient) ) {
         returnValue <- value(stack[[sendCount]])
-        if ( !is.null(returnValue) ) {
+        if ( !is.null(returnValue) & nrow(returnValue)>0 ) {
           if ( !is.null(returnName) ) {
             names(returnValue) <- returnName
           }
@@ -110,9 +124,23 @@ bucket <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NUL
     # Flush the accumulator to the stack
     writeCount <<- writeCount + 1
     if ( !is.null(FUN) ) {
-      stack[[writeCount]] <<- future( FUN( accumulator ) )
+      tryCatch(
+        {
+          stack[[writeCount]] <<- future( FUN( accumulator ) )
+        },
+        error=function(cond) {
+          stack[[writeCount]] <<- NULL
+        }
+      )
     } else {
-      stack[[writeCount]] <<- future( accumulator )
+      tryCatch(
+        {
+          stack[[writeCount]] <<- future( accumulator )
+        },
+        error=function(cond) {
+          stack[[writeCount]] <<- NULL
+        }
+      )
     }
     accumulator <<- c()
     # Flush the stack to the receiver
@@ -120,11 +148,11 @@ bucket <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NUL
       sendCount <<- sendCount + 1
       while ( sendCount <= length(stack) ) {
         if ( accumulatorSize == 0 ) {
-          if ( !is.null(returnValue) ) {
+          if ( !is.null(returnValue) & nrow(returnValue)>0 ) {
             recipient$run( value(stack[[sendCount]]) )        
           }
         } else {
-          if ( !is.null(returnValue) ) {
+          if ( !is.null(returnValue) & nrow(returnValue)>0 ) {
             recipient$run( value(stack[[sendCount]]) )        
           }
         }
