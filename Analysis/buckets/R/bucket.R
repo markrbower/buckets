@@ -95,7 +95,7 @@ bucket <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NUL
       sendCount <<- sendCount + 1
       if ( !is.null(recipient) ) {
         returnValue <- value(stack[[sendCount]])
-        if ( !is.null(returnValue) & nrow(returnValue)>0 ) {
+        if ( !is.null(returnValue) & length(returnValue)>0 ) {
           if ( !is.null(returnName) ) {
             names(returnValue) <- returnName
           }
@@ -148,11 +148,11 @@ bucket <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NUL
       sendCount <<- sendCount + 1
       while ( sendCount <= length(stack) ) {
         if ( accumulatorSize == 0 ) {
-          if ( !is.null(returnValue) & nrow(returnValue)>0 ) {
+          if ( !is.null(returnValue) & length(returnValue)>0 ) {
             recipient$run( value(stack[[sendCount]]) )        
           }
         } else {
-          if ( !is.null(returnValue) & nrow(returnValue)>0 ) {
+          if ( !is.null(returnValue) & length(returnValue)>0 ) {
             recipient$run( value(stack[[sendCount]]) )        
           }
         }
