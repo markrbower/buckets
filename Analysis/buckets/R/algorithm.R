@@ -5,32 +5,47 @@ algorithm <- function( text_algo, compArgs ) {
 
   storedData <- NULL
   compArgs <- compArgs
+  doneCount <- 0
 
   evaluate( text_algo, debug=TRUE )
+  
+  # This is needed to allow "bucket_L" to notify "algorithm" when it completes.
+  initialize <- function( A ) {
+    bucket_L$setAlgo( A )
+  }
 
   # 1.
   run <- function(events) {
-    bucket_input$run( events )
+    bucket_F$run( events )
   }
   
   add <- function(events) {
-    bucket_input$add( events )
+    bucket_F$add( events )
   }
   
   getValue <- function(events) {
-    bucket_output$getValue()
+    bucket_L$getValue()
   }
   
   setData <- function( new_data ) {
     storedData <<- new_data
   }
   
+  incDoneCount <- function( ) {
+    doneCount <<- doneCount + 1
+    print( paste0( "algorithm doneCount: ", doneCount ) )
+  }
+  
+  getDoneCount <- function() {
+    return( doneCount )
+  }
+  
   flush <- function() {
-    bucket_output$flush()
+    bucket_L$flush()
   }
   
   # 2.
-  obj <- list(run=run,add=add,getValue=getValue,setData=setData,flush=flush)
+  obj <- list(initialize=initialize,run=run,add=add,getValue=getValue,setData=setData,incDoneCount=incDoneCount,getDoneCount=getDoneCount,flush=flush)
   class(obj) <- c('algorithm' )
   return( obj )
 }

@@ -2,3 +2,6 @@
 
 export(algorithm)
 export(bucket)
+export(bucket_first)
+export(bucket_last)
+export(bucket_source)

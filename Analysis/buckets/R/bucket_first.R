@@ -1,4 +1,4 @@
-bucket <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NULL ) {
+bucket_first <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NULL ) {
   #
   # accumulatorSize: the number of events held until you do something
   # FUN            : what is done with a full accumulator
@@ -7,14 +7,14 @@ bucket <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NUL
   #
   #' @export
   library( future )
-
+  
   accumulator <- c()
   stack <- NULL
   writeCount  <- 0
   primeCnt <- 0
   sendCount <- 0
   readCount <- 0
-
+  
   prime <- function( events ) { # do not call the function
     for ( idx in seq(1,length(events) ) ) {
       add_single( events[idx], flag=FALSE )
@@ -40,16 +40,16 @@ bucket <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NUL
   
   add_single <- function( event, flag=TRUE ) {
     # event is a scalar
-#    print( "bucket::add_single")
-#    print( paste0( "event: ", event ) )
-#    print( paste0( "accumulator: ", accumulator ))
+    #    print( "bucket::add_single")
+    #    print( paste0( "event: ", event ) )
+    #    print( paste0( "accumulator: ", accumulator ))
     accumulator <<- append( accumulator, event )
-#    print( paste0( "accumulator: ", accumulator ))
+    #    print( paste0( "accumulator: ", accumulator ))
     if ( accumulatorSize>0 & length(accumulator)>=accumulatorSize ) {
       makeTheCall()      
     }
   }
-      
+  
   getValue <- function() {
     readCount <<- readCount + 1
     if ( readCount <= length(stack) ) {
@@ -89,9 +89,9 @@ bucket <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NUL
     }
     # Send forward?
     if ( primeCnt >= primeSize ) {
-#      if ( primeSize > 0 ) {
-#        print( "PRIMED!")
-#      }
+      #      if ( primeSize > 0 ) {
+      #        print( "PRIMED!")
+      #      }
       sendCount <<- sendCount + 1
       if ( !is.null(recipient) ) {
         returnValue <- value(stack[[sendCount]])
@@ -105,14 +105,14 @@ bucket <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NUL
     }
     # Clear the accumulator
     accumulator <<- c()
-#    # Flush the stack to the receiver
-#    while ( sendCount < length(stack) ) {
-#      print( "Sending")
-#      sendCount <<- sendCount + 1
-#      if ( !is.null(recipient) ) {
-#        recipient$run( value(stack[[sendCount]]) )  
-#      }
-#    }
+    #    # Flush the stack to the receiver
+    #    while ( sendCount < length(stack) ) {
+    #      print( "Sending")
+    #      sendCount <<- sendCount + 1
+    #      if ( !is.null(recipient) ) {
+    #        recipient$run( value(stack[[sendCount]]) )  
+    #      }
+    #    }
   }
   
   # ... while this one does not.
@@ -160,8 +160,8 @@ bucket <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NUL
       recipient$flush()
     }
   }
-
+  
   obj <- list(prime=prime,run=run,add=add,getValue=getValue,makeTheCall=makeTheCall,flush=flush)
-  class(obj) <- c('bucket' )
+  class(obj) <- c('bucket_first' )
   return( obj )
 }
