@@ -8,6 +8,9 @@ bucket_last <- function( accumulatorSize, FUN, recipient, primeSize=0, returnNam
   #
   #' @export
   library( future )
+#  nbrWorkers <- parallel::detectCores()
+#  print( paste0( "Number of workers: ", nbrWorkers ) )
+#  plan(multisession,workers=nbrWorkers) # "multisession" is portable, "multicore" is not
   
   algo <- NULL
   accumulator <- c()

@@ -7,12 +7,18 @@ bucket_first <- function( accumulatorSize, FUN, recipient, primeSize=0, returnNa
   #
   #' @export
   library( future )
+#  nbrWorkers <- parallel::detectCores()
+#  print( paste0( "Number of workers: ", nbrWorkers ) )
+#  plan(multisession,workers=nbrWorkers) # "multisession" is portable, "multicore" is not
   
   accumulator <- c()
   stack <- NULL
+  maxStackSize <- 25
+  stackCount <- 0
   writeCount  <- 0
   primeCnt <- 0
   sendCount <- 0
+  sendStackCount <- 0
   readCount <- 0
   
   prime <- function( events ) { # do not call the function
@@ -66,42 +72,46 @@ bucket_first <- function( accumulatorSize, FUN, recipient, primeSize=0, returnNa
   
   # This takes into account whether the stack should be primed first ...
   makeTheCall <- function() {
-    primeCnt <<- primeCnt + 1
-    writeCount <<- writeCount + 1
+    stackCount <- (writeCount %% maxStackSize) + 1
     if ( !is.null(FUN) ) {
       tryCatch(
         {
-          stack[[writeCount]] <<- future( FUN( accumulator ) )
+          stack[[stackCount]] <<- future( FUN( accumulator ) )
         },
         error=function(cond) {
-          stack[[writeCount]] <<- NULL
+          stack[[stackCount]] <<- NULL
         }
       )
     } else {
       tryCatch(
         {
-          stack[[writeCount]] <<- future( accumulator )
+          stack[[stackCount]] <<- future( accumulator )
         },
         error=function(cond) {
-          stack[[writeCount]] <<- NULL
+          stack[[stackCount]] <<- NULL
         }
       )
     }
+    primeCnt <<- primeCnt + 1
+    writeCount <<- writeCount + 1
     # Send forward?
     if ( primeCnt >= primeSize ) {
+      sendStackCount <- (sendCount %% maxStackSize) + 1
       #      if ( primeSize > 0 ) {
       #        print( "PRIMED!")
       #      }
-      sendCount <<- sendCount + 1
       if ( !is.null(recipient) ) {
-        returnValue <- value(stack[[sendCount]])
+        returnValue <- value(stack[[sendStackCount]])
         if ( !is.null(returnValue) & length(returnValue)>0 ) {
           if ( !is.null(returnName) ) {
             names(returnValue) <- returnName
           }
+          #print( "Bucket first sending" )
           recipient$run( returnValue )
+          #print( "Bucket first sent" )
         }
       }
+      sendCount <<- sendCount + 1
     }
     # Clear the accumulator
     accumulator <<- c()

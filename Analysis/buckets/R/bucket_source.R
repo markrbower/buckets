@@ -1,48 +1,56 @@
 bucket_source <- function( mef_conts, algo, primeSize ) {
   #' @export
   library( future )
-
+#  nbrWorkers <- parallel::detectCores()
+#  print( paste0( "Number of workers: ", nbrWorkers ) )
+#  plan(multisession,workers=nbrWorkers) # "multisession" is portable, "multicore" is not
+  
   stack <- NULL
+  maxStackSize <- 5*primeSize
+  stackCount <- 0
   writeCount  <- 0
   primeCnt <- 0
   sendCount <- 0
 
   begin <- function() {
     counter <<- 0
-    while ( itertools::hasNext( mef_conts ) ) { # across contiguous blocks
-      iter_data <- iterators::nextElem( mef_conts )
-      while ( itertools::hasNext( iter_data ) ) {
-        while ( writeCount>primeSize & algo$getDoneCount()<(writeCount - 2*primeSize) ) {
-          print( "sleeping" )
-          Sys.sleep(60)
-        }
-        primeCnt <<- primeCnt + 1
-        writeCount <<- writeCount + 1
-        print( paste0( "Write: ", writeCount ) )
+    while ( mef_conts$hasNext() ) { # across contiguous blocks
+      iter_data <- mef_conts$nextElem()
+      while ( iter_data$hasNext() ) {
+#        while ( writeCount>10*primeSize & algo$getDoneCount()<(writeCount - 2*primeSize) ) {
+#          print( "sleeping" )
+#          Sys.sleep(60)
+#        }
         tryCatch(
           {
-            stack[[writeCount]] <<- future( iterators::nextElem( iter_data ) )
+            parameters <- iter_data$nextParameters()
+            stackCount <- (writeCount %% maxStackSize) + 1
+            stack[[stackCount]] <<- future( iter_data$readByParameters(parameters) )
           }, error=function(cond) {
-            stack[[writeCount]] <<- NULL
+            stack[[stackCount]] <<- NULL
           }
         )
-
+        primeCnt <<- primeCnt + 1
+        writeCount <<- writeCount + 1
+        #print( paste0( "Write: ", writeCount ) )
+        #print( paste0( "Stack: ", stackCount ) )
         if ( primeCnt >= primeSize ) {
-          sendCount <<- sendCount + 1
-          print( paste0( "Send: ", sendCount ) )
+          sendStackCount <- (sendCount %% maxStackSize ) + 1
           if ( !is.null(algo) ) {
-            returnValue <- value(stack[[sendCount]])
+            returnValue <- value(stack[[sendStackCount]])
             if ( !is.null(returnValue) & length(returnValue)>0 ) {
+              #print( paste0( "returnValue: ", returnValue[1] ) )
               attr( returnValue, 'counter' ) <- sendCount
+              if ( (sendCount %% 10)==0 ) {
+                print( sendCount )
+              }
               algo$run( returnValue )
-              
               # The last bucket needs to send something when it completes
-              
-              algo$incDoneCount()
-              print( paste0( "Algo run done: ", algo$getDoneCount() ) )
+              #print( paste0( "Algo run done: ", algo$getDoneCount() ) )
             }
-            stack[[sendCount]] <<- NULL
           }
+          sendCount <<- sendCount + 1
+          #print( paste0( "Send: ", sendCount ) )
         }
       } # next chunk of data
     } # next continuous series of chunks

@@ -33,7 +33,7 @@ algorithm <- function( text_algo, compArgs ) {
   
   incDoneCount <- function( ) {
     doneCount <<- doneCount + 1
-    print( paste0( "algorithm doneCount: ", doneCount ) )
+#    print( paste0( "algorithm doneCount: ", doneCount ) )
   }
   
   getDoneCount <- function() {

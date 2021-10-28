@@ -7,7 +7,10 @@ bucket <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NUL
   #
   #' @export
   library( future )
-
+#  nbrWorkers <- parallel::detectCores()
+#  print( paste0( "Number of workers: ", nbrWorkers ) )
+#  plan(multisession,workers=nbrWorkers) # "multisession" is portable, "multicore" is not
+  
   accumulator <- c()
   stack <- NULL
   writeCount  <- 0
@@ -22,6 +25,7 @@ bucket <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NUL
   }
   
   run <- function( events ) {
+    #print( "Bucket run" )
     accumulator <<- events
     makeTheCall()
   }
@@ -99,7 +103,9 @@ bucket <- function( accumulatorSize, FUN, recipient, primeSize=0, returnName=NUL
           if ( !is.null(returnName) ) {
             names(returnValue) <- returnName
           }
+          #print( "Bucket sending" )
           recipient$run( returnValue )
+          #print( "Bucket sent" )
         }
       }
     }
